@@ -1,36 +1,62 @@
-name: Dependency Check
+# Name of the GitHub Actions workflow
+name: Scan with OWASP Dependency Check
 
 on:
-  push:
-    branches:
-      - main
+  # Trigger the workflow on the following events:
 
+  # Scan changed files in Pull Requests (diff-aware scanning).
+  pull_request: {}
+
+  # Trigger the workflow on-demand through the GitHub Actions interface.
+  workflow_dispatch: {}
+
+  # Scan mainline branches (main and development) and report all findings.
+  push:
+    branches: ["main"]
+
+# Define the job(s) to be executed within the workflow
 jobs:
-  dependency-check:
-    runs-on: ubuntu-latest
+  depchecktest:
+    name: Scan with OWASP Dependency Check
+
+    runs-on: [ 'ubuntu-latest' ] # Use the latest version of Ubuntu
+
+    # Define permissions for specific actions
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
 
     steps:
-      # Step 1: Checkout the repository
-      - name: Checkout Code
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@main
+        # Step: Checkout code
+        # Action to check out the code from the repository
+        # This step fetches the codebase from the GitHub repository
 
-      # Step 2: Set up Java (if needed for your project)
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-
-      # Step 3: Run OWASP Dependency Check
-      - name: Run OWASP Dependency Check
+      - name: Scan with OWASP Dependency Check
         uses: dependency-check/Dependency-Check_Action@main
+        id: Depcheck
         with:
-          format: 'HTML' # Output format (e.g., HTML, JSON)
-          out: './dependency-check-report' # Directory for reports
+          project: 'Mutillidae' # Project name for Dependency Check
+          path: '.' # Scan all files in the current directory
+          format: 'SARIF' # Output format for scan results
+          out: '.' # Output directory (default is the current directory)
+          args: >
+            --enableRetired # Additional scan arguments for Dependency Check
+        continue-on-error: true
+        # Step: Scan with OWASP Dependency Check
+        # Action to run OWASP Dependency Check to scan dependencies
+        # It identifies vulnerabilities in project dependencies
 
-      # Step 4: Upload the report as an artifact
-     # - name: Upload Report
-      #  uses: actions/upload-artifact@v2
-       # with:
-        #  name: dependency-check-report
-         # path: ./dependency-check-report/
+      - name: Upload results from OWASP Dependency Check to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@main
+        with:
+          sarif_file: dependency-check-report.sarif
+          # Step: Upload results to GitHub Code Scanning
+          # Action to upload the results of the OWASP Dependency Check scan in SARIF format
+          # This allows viewing and analyzing the scan results in the GitHub repository
+          category: "Scan-dependencies-code-with-OWASP-Dependency-Check"
+          # Specify a category to distinguish between multiple analyses
+          # for the same tool and ref. If you don't use `category` in your workflow,
+          # GitHub will generate a default category name for you
