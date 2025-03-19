@@ -25,7 +25,7 @@ jobs:
         uses: dependency-check/Dependency-Check_Action@main
         with:
           format: 'HTML' # Output format (e.g., HTML, JSON)
-          outputDirectory: './dependency-check-report' # Directory for reports
+          out: './dependency-check-report' # Directory for reports
 
       # Step 4: Upload the report as an artifact
      # - name: Upload Report
