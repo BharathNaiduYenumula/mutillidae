@@ -22,7 +22,7 @@ jobs:
 
       # Step 3: Run OWASP Dependency Check
       - name: Run OWASP Dependency Check
-        uses: etnetera/owasp-dependency-check-action@v2.0.0
+        uses: etnetera/owasp-dependency-check-action@v3
         with:
           format: 'HTML' # Output format (e.g., HTML, JSON)
           outputDirectory: './dependency-check-report' # Directory for reports
