@@ -28,8 +28,8 @@ jobs:
           outputDirectory: './dependency-check-report' # Directory for reports
 
       # Step 4: Upload the report as an artifact
-      - name: Upload Report
-        uses: actions/upload-artifact@v2
-        with:
-          name: dependency-check-report
-          path: ./dependency-check-report/
+     # - name: Upload Report
+      #  uses: actions/upload-artifact@v2
+       # with:
+        #  name: dependency-check-report
+         # path: ./dependency-check-report/
