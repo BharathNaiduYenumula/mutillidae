@@ -1,0 +1,35 @@
+name: Dependency Check
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  dependency-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Java (if needed for your project)
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '11'
+
+      # Step 3: Run OWASP Dependency Check
+      - name: Run OWASP Dependency Check
+        uses: etnetera/owasp-dependency-check-action@v2.0.0
+        with:
+          format: 'HTML' # Output format (e.g., HTML, JSON)
+          outputDirectory: './dependency-check-report' # Directory for reports
+
+      # Step 4: Upload the report as an artifact
+      - name: Upload Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: dependency-check-report
+          path: ./dependency-check-report/
