@@ -22,7 +22,7 @@ jobs: #Jobs define specific tasks which are to be executed in pipeline.
     steps:
     - uses: actions/checkout@v2
       with:
-        # Disabling shallow clone is recommended for improving relevancy of reporting
+        # Disabling shallow clone is recommended for improving relevancy of reportingS
         fetch-depth: 0
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
