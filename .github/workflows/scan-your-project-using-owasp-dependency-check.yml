@@ -27,7 +27,7 @@ jobs:
         id: Depcheck
         with:
           project: 'Mutillidae' # Project name for Dependency Check
-          path: '.' # Scan all files in the current directory
+          path: '.' # Scan all files in the current directoryy
           format: 'CSV' # Output format for scan results
           out: '.' # Output directory (default is the current directory)
           args: >
