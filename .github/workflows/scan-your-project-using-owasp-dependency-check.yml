@@ -4,7 +4,7 @@ name: Scan with OWASP Dependency Check
 on:
   # Trigger the workflow on the following events:
   push:
-    branches: ["dev"]
+    branches: ["main"]
 
 # Define the job(s) to be executed within the workflow
 jobs:
