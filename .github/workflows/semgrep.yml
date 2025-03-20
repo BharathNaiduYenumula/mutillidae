@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Semgrep scan and save results in CSV
-        run: semgrep ci --o csv --output semgrep-sast-results.csv
+        run: semgrep ci --output semgrep-sast-results.csv
 
       - name: Commit and push results to main branch
         run: |
