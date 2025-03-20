@@ -1,0 +1,21 @@
+name: DAST Security Scan using stackhawk
+
+on: [push]
+
+jobs:
+  dast-scan:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Start Mutillidae
+      run: |
+        # Add commands to start your Mutillidae instance
+        php -S localhost:8080 -t ./mutillidae/ &
+    
+    - name: Run StackHawk Scan
+      uses: stackhawk/hawkscan-action@v1.1
+      with:
+        apiKey: ${{ secrets.HAWK_API_KEY }}
+        host: <http://localhost:8080>[3][4]
