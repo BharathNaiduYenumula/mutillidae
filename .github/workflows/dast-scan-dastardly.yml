@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Run Dastardly Scan Action
+      # Step 2: Run Dastardly Scan Actionn
       - name: Run Dastardly Scan Action
         uses: PortSwigger/dastardly-github-action@main
         with:
