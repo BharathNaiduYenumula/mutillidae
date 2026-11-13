@@ -6,7 +6,7 @@ on:
   push:
     branches: ["main"]
 
-# Define the job(s) to be executed within the workflow
+# Define the job(s) to be executed within the workfloww
 jobs:
   depchecktest:
     name: Scan with OWASP Dependency Check
